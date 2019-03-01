@@ -1,0 +1,445 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     15862,        437]
+NotebookOptionsPosition[     15558,        422]
+NotebookOutlinePosition[     15921,        438]
+CellTagsIndexPosition[     15878,        435]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ClearAll", "[", "\"\<Global`*\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+  "main", "=", 
+   "\"\</Users/mikhailgaerlan/Box Sync/Education/UC Davis/2016-2017 \
+Winter/PHY 250 Econophysics/Projects/Project 5/project_files\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetDirectory", "[", "main", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"$Line", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TrapezoidalRule", "[", "x_", "]"}], ":=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"1", "/", "2"}], ")"}], "*", 
+    RowBox[{"Total", "[", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"x", "[", 
+           RowBox[{"[", 
+            RowBox[{
+             RowBox[{"i", "+", "1"}], ",", "1"}], "]"}], "]"}], "-", 
+          RowBox[{"x", "[", 
+           RowBox[{"[", 
+            RowBox[{"i", ",", "1"}], "]"}], "]"}]}], ")"}], "*", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"x", "[", 
+           RowBox[{"[", 
+            RowBox[{
+             RowBox[{"i", "+", "1"}], ",", "2"}], "]"}], "]"}], "+", 
+          RowBox[{"x", "[", 
+           RowBox[{"[", 
+            RowBox[{"i", ",", "2"}], "]"}], "]"}]}], ")"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", 
+         RowBox[{
+          RowBox[{"Length", "[", "x", "]"}], "-", "1"}], ",", "1"}], "}"}]}], 
+      "]"}], "]"}]}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.698008225220356*^9, 3.698008225354947*^9}, {
+  3.698017442861601*^9, 3.698017487884749*^9}, {3.6980176859535027`*^9, 
+  3.698017690910673*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"list", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{"\"\<Stocks_List.txt\>\"", ",", "\"\<Table\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"plots", "=", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"For", "[", 
+  RowBox[{
+   RowBox[{"k", "=", "1"}], ",", 
+   RowBox[{"k", "\[LessEqual]", 
+    RowBox[{"Length", "[", "list", "]"}]}], ",", 
+   RowBox[{"k", "++"}], ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"data", "[", "k", "]"}], "=", 
+     RowBox[{"Import", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"list", "[", 
+         RowBox[{"[", 
+          RowBox[{"k", ",", "1"}], "]"}], "]"}], "<>", "\"\<_File.txt\>\""}], 
+       ",", "\"\<Table\>\""}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"trailingreturns", "[", "k", "]"}], "=", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"data", "[", "k", "]"}], "[", 
+          RowBox[{"[", 
+           RowBox[{"i", ",", "1"}], "]"}], "]"}], ",", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"data", "[", "k", "]"}], "[", 
+             RowBox[{"[", 
+              RowBox[{"i", ",", "5"}], "]"}], "]"}], "-", 
+            RowBox[{
+             RowBox[{"data", "[", "k", "]"}], "[", 
+             RowBox[{"[", 
+              RowBox[{
+               RowBox[{"i", "-", "21"}], ",", "5"}], "]"}], "]"}]}], ")"}], 
+          "/", 
+          RowBox[{
+           RowBox[{"data", "[", "k", "]"}], "[", 
+           RowBox[{"[", 
+            RowBox[{
+             RowBox[{"i", "-", "21"}], ",", "5"}], "]"}], "]"}]}]}], "}"}], 
+       ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", 
+         RowBox[{
+          RowBox[{"-", "10"}], "*", "252"}], ",", 
+         RowBox[{"-", "1"}], ",", "1"}], "}"}]}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"volatility", "[", "k", "]"}], "=", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"data", "[", "k", "]"}], "[", 
+          RowBox[{"[", 
+           RowBox[{"i", ",", "1"}], "]"}], "]"}], ",", 
+         RowBox[{"Sqrt", "[", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"252", "/", "21"}], ")"}], "*", 
+           RowBox[{"Total", "[", 
+            RowBox[{"Table", "[", 
+             RowBox[{
+              SuperscriptBox[
+               RowBox[{"(", 
+                RowBox[{"Log", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"data", "[", "k", "]"}], "[", 
+                   RowBox[{"[", 
+                    RowBox[{
+                    RowBox[{"i", "-", "j"}], ",", "5"}], "]"}], "]"}], "/", 
+                  RowBox[{
+                   RowBox[{"data", "[", "k", "]"}], "[", 
+                   RowBox[{"[", 
+                    RowBox[{
+                    RowBox[{"i", "-", "j", "-", "1"}], ",", "5"}], "]"}], 
+                   "]"}]}], "]"}], ")"}], "2"], ",", 
+              RowBox[{"{", 
+               RowBox[{"j", ",", "1", ",", "21", ",", "1"}], "}"}]}], "]"}], 
+            "]"}]}], "]"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", 
+         RowBox[{
+          RowBox[{"-", "10"}], "*", "252"}], ",", 
+         RowBox[{"-", "1"}], ",", "1"}], "}"}]}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"trailingreturnsexpectation", "[", "k", "]"}], "=", 
+     RowBox[{
+      RowBox[{"(", 
+       FractionBox["1", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"trailingreturns", "[", "k", "]"}], "[", 
+          RowBox[{"[", 
+           RowBox[{
+            RowBox[{"-", "1"}], ",", "1"}], "]"}], "]"}], "-", 
+         RowBox[{
+          RowBox[{"trailingreturns", "[", "k", "]"}], "[", 
+          RowBox[{"[", 
+           RowBox[{"1", ",", "1"}], "]"}], "]"}]}]], ")"}], "*", 
+      RowBox[{"TrapezoidalRule", "[", 
+       RowBox[{"trailingreturns", "[", "k", "]"}], "]"}]}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"trailingreturnssigma", "[", "k", "]"}], "=", 
+     RowBox[{"Sqrt", "[", 
+      RowBox[{
+       RowBox[{"(", 
+        FractionBox["1", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"trailingreturns", "[", "k", "]"}], "[", 
+           RowBox[{"[", 
+            RowBox[{
+             RowBox[{"-", "1"}], ",", "1"}], "]"}], "]"}], "-", 
+          RowBox[{
+           RowBox[{"trailingreturns", "[", "k", "]"}], "[", 
+           RowBox[{"[", 
+            RowBox[{"1", ",", "1"}], "]"}], "]"}]}]], ")"}], "*", 
+       RowBox[{"TrapezoidalRule", "[", 
+        RowBox[{"Table", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"i", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], ",", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"i", "[", 
+                RowBox[{"[", "2", "]"}], "]"}], "-", 
+               RowBox[{"trailingreturnsexpectation", "[", "k", "]"}]}], ")"}],
+              "2"]}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", 
+            RowBox[{"trailingreturns", "[", "k", "]"}]}], "}"}]}], "]"}], 
+        "]"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"volatilityexpectation", "[", "k", "]"}], "=", 
+     RowBox[{
+      RowBox[{"(", 
+       FractionBox["1", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"volatility", "[", "k", "]"}], "[", 
+          RowBox[{"[", 
+           RowBox[{
+            RowBox[{"-", "1"}], ",", "1"}], "]"}], "]"}], "-", 
+         RowBox[{
+          RowBox[{"volatility", "[", "k", "]"}], "[", 
+          RowBox[{"[", 
+           RowBox[{"1", ",", "1"}], "]"}], "]"}]}]], ")"}], "*", 
+      RowBox[{"TrapezoidalRule", "[", 
+       RowBox[{"volatility", "[", "k", "]"}], "]"}]}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"volatilitysigma", "[", "k", "]"}], "=", 
+     RowBox[{"Sqrt", "[", 
+      RowBox[{
+       RowBox[{"(", 
+        FractionBox["1", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"volatility", "[", "k", "]"}], "[", 
+           RowBox[{"[", 
+            RowBox[{
+             RowBox[{"-", "1"}], ",", "1"}], "]"}], "]"}], "-", 
+          RowBox[{
+           RowBox[{"volatility", "[", "k", "]"}], "[", 
+           RowBox[{"[", 
+            RowBox[{"1", ",", "1"}], "]"}], "]"}]}]], ")"}], "*", 
+       RowBox[{"TrapezoidalRule", "[", 
+        RowBox[{"Table", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"i", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], ",", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"i", "[", 
+                RowBox[{"[", "2", "]"}], "]"}], "-", 
+               RowBox[{"volatilityexpectation", "[", "k", "]"}]}], ")"}], 
+             "2"]}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", 
+            RowBox[{"volatility", "[", "k", "]"}]}], "}"}]}], "]"}], "]"}]}], 
+      "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"correlationcoefficient", "[", "k", "]"}], "=", 
+     RowBox[{
+      RowBox[{"(", 
+       FractionBox["1", 
+        RowBox[{
+         RowBox[{"trailingreturnssigma", "[", "k", "]"}], "*", 
+         RowBox[{"volatilitysigma", "[", "k", "]"}]}]], ")"}], "*", 
+      RowBox[{"(", 
+       FractionBox["1", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"trailingreturns", "[", "k", "]"}], "[", 
+          RowBox[{"[", 
+           RowBox[{
+            RowBox[{"-", "1"}], ",", "1"}], "]"}], "]"}], "-", 
+         RowBox[{
+          RowBox[{"trailingreturns", "[", "k", "]"}], "[", 
+          RowBox[{"[", 
+           RowBox[{"1", ",", "1"}], "]"}], "]"}]}]], ")"}], "*", 
+      RowBox[{"TrapezoidalRule", "[", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"trailingreturns", "[", "k", "]"}], "[", 
+            RowBox[{"[", 
+             RowBox[{"i", ",", "1"}], "]"}], "]"}], ",", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"trailingreturns", "[", "k", "]"}], "[", 
+               RowBox[{"[", 
+                RowBox[{"i", ",", "2"}], "]"}], "]"}], "-", 
+              RowBox[{"trailingreturnsexpectation", "[", "k", "]"}]}], ")"}], 
+            "*", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"volatility", "[", "k", "]"}], "[", 
+               RowBox[{"[", 
+                RowBox[{"i", ",", "2"}], "]"}], "]"}], "-", 
+              RowBox[{"volatilityexpectation", "[", "k", "]"}]}], ")"}]}]}], 
+          "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "1", ",", 
+           RowBox[{"Length", "[", 
+            RowBox[{"trailingreturns", "[", "k", "]"}], "]"}], ",", "1"}], 
+          "}"}]}], "]"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", 
+    RowBox[{"padding", "=", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"20", ",", "20"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"20", ",", "20"}], "}"}]}], "}"}]}], ";", 
+    RowBox[{"imagesize", "=", 
+     RowBox[{"{", 
+      RowBox[{"500", ",", "300"}], "}"}]}], ";", 
+    RowBox[{"axesorigin", "=", 
+     RowBox[{"{", 
+      RowBox[{"2007", ",", "0"}], "}"}]}], ";", 
+    RowBox[{"plotrange", "=", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2006.5", ",", "2017.5"}], "}"}], ",", "All"}], "}"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Export", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"list", "[", 
+        RowBox[{"[", 
+         RowBox[{"k", ",", "1"}], "]"}], "]"}], "<>", 
+       "\"\<volatility.png\>\""}], ",", 
+      RowBox[{"GraphicsGrid", "[", 
+       RowBox[{"{", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"ListLinePlot", "[", 
+           RowBox[{
+            RowBox[{"trailingreturns", "[", "k", "]"}], ",", 
+            RowBox[{"PlotRange", "\[Rule]", "plotrange"}], ",", 
+            RowBox[{"PlotTheme", "\[Rule]", "\"\<Classic\>\""}], ",", 
+            RowBox[{"AxesOrigin", "\[Rule]", "axesorigin"}], ",", 
+            RowBox[{"ImagePadding", "\[Rule]", "padding"}], ",", 
+            RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+            RowBox[{"ImageSize", "\[Rule]", "imagesize"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"PlotLabel", "\[Rule]", 
+             RowBox[{
+              RowBox[{"list", "[", 
+               RowBox[{"[", 
+                RowBox[{"k", ",", "1"}], "]"}], "]"}], "<>", 
+              "\"\< Trailing Returns, \[Rho] = \>\"", "<>", 
+              RowBox[{"ToString", "[", 
+               RowBox[{"correlationcoefficient", "[", "k", "]"}], "]"}]}]}], 
+            ",", 
+            RowBox[{"BaseStyle", "\[Rule]", 
+             RowBox[{"{", 
+              RowBox[{"FontSize", "\[Rule]", "12"}], "}"}]}]}], "]"}], "}"}], 
+         ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+         RowBox[{"{", 
+          RowBox[{"ListLinePlot", "[", 
+           RowBox[{
+            RowBox[{"volatility", "[", "k", "]"}], ",", 
+            RowBox[{"PlotRange", "\[Rule]", "plotrange"}], ",", 
+            RowBox[{"PlotTheme", "\[Rule]", "\"\<Classic\>\""}], ",", 
+            RowBox[{"AxesOrigin", "\[Rule]", "axesorigin"}], ",", 
+            RowBox[{"ImagePadding", "\[Rule]", "padding"}], ",", 
+            RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+            RowBox[{"ImageSize", "\[Rule]", "imagesize"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"PlotLabel", "\[Rule]", 
+             RowBox[{
+              RowBox[{"list", "[", 
+               RowBox[{"[", 
+                RowBox[{"k", ",", "1"}], "]"}], "]"}], "<>", 
+              "\"\< Volatility, \[Rho] = \>\"", "<>", 
+              RowBox[{"ToString", "[", 
+               RowBox[{"correlationcoefficient", "[", "k", "]"}], "]"}]}]}], 
+            ",", 
+            RowBox[{"BaseStyle", "\[Rule]", 
+             RowBox[{"{", 
+              RowBox[{"FontSize", "\[Rule]", "12"}], "}"}]}]}], "]"}], 
+          "}"}]}], "}"}], "\[IndentingNewLine]", "]"}]}], "]"}]}]}], 
+  "\[IndentingNewLine]", "]"}]}], "Input",
+ CellChangeTimes->{{3.698008494488147*^9, 3.6980085347342463`*^9}, {
+  3.698008697809246*^9, 3.698008748680889*^9}, {3.698008778727274*^9, 
+  3.69800900572537*^9}, {3.698009041623365*^9, 3.698009076014464*^9}, {
+  3.698009107197917*^9, 3.698009152155806*^9}, {3.6980111377740097`*^9, 
+  3.698011167647523*^9}, {3.6980168601727552`*^9, 3.698016920635809*^9}, {
+  3.698016968327964*^9, 3.698016987550969*^9}, {3.698017082368609*^9, 
+  3.698017089454583*^9}, {3.698017133481927*^9, 3.698017346088085*^9}, {
+  3.6980173833834667`*^9, 3.69801742840097*^9}, {3.6980174972152643`*^9, 
+  3.698017567474852*^9}, {3.698017762656481*^9, 3.698018191987844*^9}, {
+  3.698019079910615*^9, 3.698019134391469*^9}, {3.698019721054706*^9, 
+  3.698019833744259*^9}, {3.698020199835985*^9, 3.6980202089332933`*^9}, {
+  3.698020435507742*^9, 3.698020438564713*^9}, {3.6980250738588943`*^9, 
+  3.698025102182136*^9}}]
+},
+WindowSize->{808, 845},
+WindowMargins->{{Automatic, -874}, {Automatic, -245}},
+FrontEndVersion->"11.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+21, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 1754, 51, 243, "Input"],
+Cell[2315, 73, 13239, 347, 1269, "Input"]
+}
+]
+*)
+

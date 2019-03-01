@@ -1,0 +1,434 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     16947,        426]
+NotebookOptionsPosition[     16422,        403]
+NotebookOutlinePosition[     16780,        419]
+CellTagsIndexPosition[     16737,        416]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ClearAll", "[", "\"\<Global`*\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+  "main", "=", 
+   "\"\</Users/mikhailgaerlan/Box Sync/Education/UC Davis/2016-2017 \
+Winter/PHY 250 Econophysics/Projects/Project 2/project_files\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetDirectory", "[", "main", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"$Line", "=", "0"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.695095996199823*^9, 3.695095996375577*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"gaussdata", "=", 
+   RowBox[{"RandomVariate", "[", 
+    RowBox[{
+     RowBox[{"NormalDistribution", "[", 
+      RowBox[{"0", ",", "1"}], "]"}], ",", "100000"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"poissdata", "=", 
+   RowBox[{"RandomVariate", "[", 
+    RowBox[{
+     RowBox[{"PoissonDistribution", "[", "10", "]"}], ",", "100000"}], 
+    "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.695080728449287*^9, 3.6950807420889673`*^9}, {
+  3.695084006784369*^9, 3.695084073941044*^9}, {3.695091877787929*^9, 
+  3.695091878732854*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"histlist", "=", 
+   RowBox[{"HistogramList", "[", 
+    RowBox[{"gaussdata", ",", "Automatic", ",", "\"\<PDF\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"histdata", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"histlist", "[", 
+           RowBox[{"[", 
+            RowBox[{"1", ",", "i"}], "]"}], "]"}], "+", 
+          RowBox[{"histlist", "[", 
+           RowBox[{"[", 
+            RowBox[{"1", ",", 
+             RowBox[{"i", "+", "1"}]}], "]"}], "]"}]}], ")"}], "/", "2"}], 
+       ",", 
+       RowBox[{"histlist", "[", 
+        RowBox[{"[", 
+         RowBox[{"2", ",", "i"}], "]"}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", 
+       RowBox[{
+        RowBox[{"Length", "[", 
+         RowBox[{"histlist", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "]"}], "-", "2"}]}], "}"}]}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"model", "=", 
+   RowBox[{"NonlinearModelFit", "[", 
+    RowBox[{"histdata", ",", 
+     RowBox[{"PDF", "[", 
+      RowBox[{
+       RowBox[{"NormalDistribution", "[", 
+        RowBox[{"\[Mu]", ",", "\[Sigma]"}], "]"}], ",", "x"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"\[Mu]", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"\[Sigma]", ",", "1"}], "}"}]}], "}"}], ",", "x"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"model", "[", "\"\<ParameterTable\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<gaussfreq.png\>\"", ",", 
+    RowBox[{"Histogram", "[", 
+     RowBox[{"gaussdata", ",", 
+      RowBox[{"PlotTheme", "\[Rule]", "\"\<Classic\>\""}], ",", 
+      RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+      RowBox[{"FrameTicks", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"True", ",", "False"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"True", ",", "False"}], "}"}]}], "}"}]}], ",", 
+      RowBox[{"FrameLabel", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"\"\<\>\"", ",", "\"\<Frequency\>\""}], "}"}]}], ",", 
+      RowBox[{"BaseStyle", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"FontSize", "\[Rule]", "12"}], "}"}]}], ",", 
+      RowBox[{
+      "PlotLabel", "\[Rule]", 
+       "\"\<Gaussian Distribution, \[VeryThinSpace]\[Mu] = 0, \[Sigma] = \
+1\>\""}], ",", 
+      RowBox[{"ImageSize", "\[Rule]", "300"}]}], "]"}], ",", 
+    RowBox[{"ImageResolution", "\[Rule]", "100"}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<gaussprob.png\>\"", ",", 
+    RowBox[{"Show", "[", 
+     RowBox[{
+      RowBox[{"Histogram", "[", 
+       RowBox[{"gaussdata", ",", "Automatic", ",", "\"\<PDF\>\"", ",", 
+        RowBox[{"PlotTheme", "\[Rule]", "\"\<Classic\>\""}]}], "]"}], ",", 
+      RowBox[{"Plot", "[", 
+       RowBox[{
+        RowBox[{"model", "[", "\"\<BestFit\>\"", "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", 
+          RowBox[{"-", "4.5"}], ",", "4.5"}], "}"}], ",", 
+        RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+        RowBox[{"PlotTheme", "\[Rule]", "\"\<Classic\>\""}]}], "]"}], ",", 
+      RowBox[{"Graphics", "[", 
+       RowBox[{"Text", "[", 
+        RowBox[{
+         RowBox[{"Style", "[", 
+          RowBox[{
+          "\"\<Gaussian Fit\\n\[Mu] = 0.0044(16)\\n\[Sigma] = 1.0108(13)\>\"",
+            ",", 
+           RowBox[{"FontSize", "\[Rule]", "12"}], ",", 
+           RowBox[{"FontFamily", "\[Rule]", "\"\<Times\>\""}]}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "0.25"}], "}"}]}], "]"}], "]"}], ",", 
+      RowBox[{"ListPlot", "[", 
+       RowBox[{"histdata", ",", 
+        RowBox[{"PlotTheme", "\[Rule]", "\"\<Classic\>\""}]}], "]"}], ",", 
+      RowBox[{"BaseStyle", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"FontSize", "\[Rule]", "12"}], "}"}]}], ",", 
+      RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+      RowBox[{"FrameTicks", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"True", ",", "False"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"True", ",", "False"}], "}"}]}], "}"}]}], ",", 
+      RowBox[{"FrameLabel", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"\"\<\>\"", ",", "\"\<Probability\>\""}], "}"}]}], ",", 
+      RowBox[{
+      "PlotLabel", "\[Rule]", 
+       "\"\<Gaussian Distribution, \[Mu] = 0, \[Sigma] = 1\>\""}], ",", 
+      RowBox[{"ImageSize", "\[Rule]", "300"}]}], "]"}], ",", 
+    RowBox[{"ImageResolution", "\[Rule]", "100"}]}], "]"}], ";"}]}], "Input",
+ CellChangeTimes->CompressedData["
+1:eJwdzlsogwEcBfCvzTDl8kAuY5gHTE2tRVNmRu4pQtlcsjGymsw1PFhLhhdt
+Lg8iSchdJJTVQu53vog1JSJLiRcrl53v4d+vTp3OP1Rek1tBIwiC4zjoJM/M
+Out8SxTQbygb63pyYJWRpOwWEYWQtR+ogOYggwpqVh7VMKLeWQsvxj10kLQm
+6+EnyRiGE0LTFIxWfc1S/RnaCowsejVD/YbXIfQuPryD3LRRK1zda7ZB0en3
+B7UXH2uH6vlep3OH0mMLE87I3j1giiDVh8oZbBZMO0niwaPpKCF82k5PgJs9
+kmQ4MafKhtW3cim0jGsqoenAXg+3PIcbYdbDbgvsy6a3wyWJwv8Kf8jGQqBf
+TV4kLHkJ40NJg0v/tUNi3TQAOT+/I/CP0zQJRfTBObgoLb2ANoOYhL+tNgvM
+4Ha4kA7FyjU3aIj7DIANwWtsyIww8KBymcmHdkttDDSuu4sgd1SXD8u6dij7
+hWYZDOc/F0POva8Wtl1qdDC33KSH5Qu0XsiLfTBC1wLeEPwHk4EsCw==
+  "]],
+
+Cell[BoxData[
+ StyleBox[
+  TagBox[GridBox[{
+     {"\<\"\"\>", "\<\"Estimate\"\>", "\<\"Standard Error\"\>", "\<\"t\
+\[Hyphen]Statistic\"\>", "\<\"P\[Hyphen]Value\"\>"},
+     {"\[Mu]", "0.004455695492152261`", "0.0016315071797083907`", 
+      "2.7310302691702866`", "0.015464910789318472`"},
+     {"\[Sigma]", "1.0107704746441117`", "0.0013321214388609488`", 
+      "758.7675156015706`", "8.42626577360835`*^-36"}
+    },
+    AutoDelete->False,
+    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+    GridBoxDividers->{
+     "ColumnsIndexed" -> {2 -> GrayLevel[0.7]}, 
+      "RowsIndexed" -> {2 -> GrayLevel[0.7]}},
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+    GridBoxSpacings->{
+     "ColumnsIndexed" -> {2 -> 1}, "RowsIndexed" -> {2 -> 0.75}}],
+   "Grid"], "DialogStyle",
+  StripOnInput->False]], "Output",
+ CellChangeTimes->{{3.695085932812127*^9, 3.6950859383775*^9}, {
+   3.695086028731247*^9, 3.695086029885352*^9}, {3.695086064043833*^9, 
+   3.695086074815201*^9}, {3.695086115006138*^9, 3.6950861959345713`*^9}, {
+   3.695086296833034*^9, 3.695086361849289*^9}, 3.695086396157422*^9, {
+   3.695086519280416*^9, 3.695086552055661*^9}, 3.695086592819387*^9, 
+   3.695086659913307*^9, {3.6950867791293993`*^9, 3.695086790895136*^9}, {
+   3.6950918666231403`*^9, 3.695091885482633*^9}, {3.69509192474706*^9, 
+   3.695091973553843*^9}, {3.695092054386372*^9, 3.695092113545533*^9}, 
+   3.695094967567078*^9, {3.695095046594384*^9, 3.695095058262713*^9}, 
+   3.695095100661415*^9, {3.695095154588328*^9, 3.695095213276876*^9}, {
+   3.695095245364019*^9, 3.695095298693578*^9}, {3.6950953820790358`*^9, 
+   3.69509540560478*^9}, 3.695095444566985*^9, 3.6950954986436243`*^9, {
+   3.6950955300738983`*^9, 3.695095535768458*^9}, 3.695095843088842*^9, 
+   3.695095895332904*^9, {3.695096002864835*^9, 3.695096009664843*^9}, {
+   3.695096049511945*^9, 3.695096107086616*^9}, {3.695096141035709*^9, 
+   3.695096163369852*^9}, {3.695096225052743*^9, 3.6950963152050056`*^9}, {
+   3.695096502899548*^9, 3.695096559690009*^9}, {3.695096845050087*^9, 
+   3.695096865090906*^9}, {3.695096912331505*^9, 3.695096928672441*^9}, {
+   3.695096960538912*^9, 3.695097005084653*^9}, {3.69509703803261*^9, 
+   3.695097049955309*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"histlist", "=", 
+   RowBox[{"HistogramList", "[", 
+    RowBox[{"poissdata", ",", "Automatic", ",", "\"\<PDF\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"histdata", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"histlist", "[", 
+           RowBox[{"[", 
+            RowBox[{"1", ",", "i"}], "]"}], "]"}], "+", 
+          RowBox[{"histlist", "[", 
+           RowBox[{"[", 
+            RowBox[{"1", ",", 
+             RowBox[{"i", "+", "1"}]}], "]"}], "]"}]}], ")"}], "/", "2"}], 
+       ",", 
+       RowBox[{"histlist", "[", 
+        RowBox[{"[", 
+         RowBox[{"2", ",", "i"}], "]"}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", 
+       RowBox[{
+        RowBox[{"Length", "[", 
+         RowBox[{"histlist", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "]"}], "-", "2"}]}], "}"}]}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"model", "=", 
+   RowBox[{"NonlinearModelFit", "[", 
+    RowBox[{"histdata", ",", 
+     RowBox[{"PDF", "[", 
+      RowBox[{
+       RowBox[{"PoissonDistribution", "[", "\[Lambda]", "]"}], ",", "x"}], 
+      "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"{", 
+       RowBox[{"\[Lambda]", ",", "10"}], "}"}], "}"}], ",", "x"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"model", "[", "\"\<ParameterTable\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<poissfreq.png\>\"", ",", 
+    RowBox[{"Histogram", "[", 
+     RowBox[{"poissdata", ",", 
+      RowBox[{"PlotTheme", "\[Rule]", "\"\<Classic\>\""}], ",", 
+      RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+      RowBox[{"FrameTicks", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"True", ",", "False"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"True", ",", "False"}], "}"}]}], "}"}]}], ",", 
+      RowBox[{"FrameLabel", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"\"\<\>\"", ",", "\"\<Frequency\>\""}], "}"}]}], ",", 
+      RowBox[{"BaseStyle", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"FontSize", "\[Rule]", "12"}], "}"}]}], ",", 
+      RowBox[{
+      "PlotLabel", "\[Rule]", 
+       "\"\<Poisson Distribution, \[Lambda] = 10\>\""}], ",", 
+      RowBox[{"ImageSize", "\[Rule]", "300"}]}], "]"}], ",", 
+    RowBox[{"ImageResolution", "\[Rule]", "100"}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<poissprob.png\>\"", ",", 
+    RowBox[{"Show", "[", 
+     RowBox[{
+      RowBox[{"Histogram", "[", 
+       RowBox[{"poissdata", ",", "Automatic", ",", "\"\<PDF\>\"", ",", 
+        RowBox[{"PlotTheme", "\[Rule]", "\"\<Classic\>\""}]}], "]"}], ",", 
+      RowBox[{"Plot", "[", 
+       RowBox[{
+        RowBox[{"model", "[", "\"\<BestFit\>\"", "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "0", ",", "25"}], "}"}], ",", 
+        RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+        RowBox[{"PlotTheme", "\[Rule]", "\"\<Classic\>\""}]}], "]"}], ",", 
+      RowBox[{"Graphics", "[", 
+       RowBox[{"Text", "[", 
+        RowBox[{
+         RowBox[{"Style", "[", 
+          RowBox[{"\"\<Poisson Fit\\n\[Lambda] = 10.502(24)\>\"", ",", 
+           RowBox[{"FontSize", "\[Rule]", "12"}], ",", 
+           RowBox[{"FontFamily", "\[Rule]", "\"\<Times\>\""}]}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"22", ",", "0.08"}], "}"}]}], "]"}], "]"}], ",", 
+      RowBox[{"ListPlot", "[", 
+       RowBox[{"histdata", ",", 
+        RowBox[{"PlotTheme", "\[Rule]", "\"\<Classic\>\""}]}], "]"}], ",", 
+      RowBox[{"BaseStyle", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"FontSize", "\[Rule]", "12"}], "}"}]}], ",", 
+      RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+      RowBox[{"FrameTicks", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"True", ",", "False"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"True", ",", "False"}], "}"}]}], "}"}]}], ",", 
+      RowBox[{"FrameLabel", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"\"\<\>\"", ",", "\"\<Probability\>\""}], "}"}]}], ",", 
+      RowBox[{
+      "PlotLabel", "\[Rule]", 
+       "\"\<Poisson Distribution, \[Lambda] = 10\>\""}], ",", 
+      RowBox[{"ImageSize", "\[Rule]", "300"}]}], "]"}], ",", 
+    RowBox[{"ImageResolution", "\[Rule]", "100"}]}], "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.695086407177003*^9, 3.6950864082225733`*^9}, {
+  3.695086558493023*^9, 3.695086567004157*^9}, {3.6950866003343678`*^9, 
+  3.6950866450069637`*^9}, {3.695086784580418*^9, 3.6950867900342093`*^9}, {
+  3.695091883351596*^9, 3.695091883510418*^9}, {3.695092002499604*^9, 
+  3.695092035900021*^9}, {3.6950920933573933`*^9, 3.695092097319591*^9}, {
+  3.695095671822502*^9, 3.695095810611568*^9}, {3.695095906831609*^9, 
+  3.695095974432049*^9}, {3.6950960147230988`*^9, 3.695096016401945*^9}, {
+  3.695096218894312*^9, 3.695096245761325*^9}, {3.695096312030518*^9, 
+  3.695096312536459*^9}, {3.69509649866226*^9, 3.6950965006854477`*^9}, {
+  3.6950965769168997`*^9, 3.6950965791565847`*^9}, {3.69509675496154*^9, 
+  3.695096757008647*^9}, {3.695096822263688*^9, 3.6950968632160997`*^9}, {
+  3.695097024279389*^9, 3.695097024717123*^9}}],
+
+Cell[BoxData[
+ StyleBox[
+  TagBox[GridBox[{
+     {"\<\"\"\>", "\<\"Estimate\"\>", "\<\"Standard Error\"\>", "\<\"t\
+\[Hyphen]Statistic\"\>", "\<\"P\[Hyphen]Value\"\>"},
+     {"\[Lambda]", "10.502073209104081`", "0.0244153610335837`", 
+      "430.14204027777106`", "6.790078656892507`*^-50"}
+    },
+    AutoDelete->False,
+    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+    GridBoxDividers->{
+     "ColumnsIndexed" -> {2 -> GrayLevel[0.7]}, 
+      "RowsIndexed" -> {2 -> GrayLevel[0.7]}},
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+    GridBoxSpacings->{
+     "ColumnsIndexed" -> {2 -> 1}, "RowsIndexed" -> {2 -> 0.75}}],
+   "Grid"], "DialogStyle",
+  StripOnInput->False]], "Output",
+ CellChangeTimes->{
+  3.695086410388929*^9, {3.695086561302331*^9, 3.695086572601301*^9}, {
+   3.6950866306631403`*^9, 3.695086660536108*^9}, {3.695086779714294*^9, 
+   3.6950867914977493`*^9}, {3.6950918672368603`*^9, 
+   3.6950918860457478`*^9}, {3.695092003634746*^9, 3.695092056206283*^9}, {
+   3.6950920938807373`*^9, 3.695092098228816*^9}, {3.695095697821908*^9, 
+   3.695095736872655*^9}, {3.695095769332608*^9, 3.695095811435008*^9}, 
+   3.695095843817772*^9, {3.6950959033040457`*^9, 3.6950959107957*^9}, 
+   3.6950959752702*^9, {3.695096010248905*^9, 3.695096017341855*^9}, {
+   3.6950960566666737`*^9, 3.695096108007359*^9}, {3.6950961420204763`*^9, 
+   3.695096164443491*^9}, {3.695096222049148*^9, 3.695096246843039*^9}, 
+   3.6950963134007673`*^9, {3.6950965012437077`*^9, 3.695096535864593*^9}, {
+   3.695096571971045*^9, 3.695096579683385*^9}, 3.695096757919058*^9, {
+   3.695096825116948*^9, 3.6950968339472647`*^9}, 3.695096867142921*^9, 
+   3.6950969765087357`*^9, 3.6950970076935673`*^9, 3.695097056575932*^9}]
+}, Open  ]]
+},
+WindowSize->{808, 843},
+WindowMargins->{{Automatic, 44}, {Automatic, 0}},
+FrontEndVersion->"11.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+21, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 534, 14, 138, "Input"],
+Cell[1095, 36, 594, 16, 54, "Input"],
+Cell[CellGroupData[{
+Cell[1714, 56, 5284, 135, 369, "Input"],
+Cell[7001, 193, 2268, 39, 63, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9306, 237, 5327, 129, 348, "Input"],
+Cell[14636, 368, 1770, 32, 83, "Output"]
+}, Open  ]]
+}
+]
+*)
+

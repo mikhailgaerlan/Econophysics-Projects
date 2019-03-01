@@ -1,0 +1,913 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     32169,        905]
+NotebookOptionsPosition[     30986,        860]
+NotebookOutlinePosition[     31345,        876]
+CellTagsIndexPosition[     31302,        873]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ClearAll", "[", "\"\<Global`*\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+  "main", "=", 
+   "\"\</Users/mikhailgaerlan/Box Sync/Education/UC Davis/2016-2017 \
+Winter/PHY 250 Econophysics/Projects/Final Project/\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetDirectory", "[", "main", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"$Line", "=", "0"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TrapezoidalRule", "[", "x_", "]"}], ":=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"1", "/", "2"}], ")"}], "*", 
+    RowBox[{"Total", "[", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"x", "[", 
+           RowBox[{"[", 
+            RowBox[{
+             RowBox[{"i", "+", "1"}], ",", "1"}], "]"}], "]"}], "-", 
+          RowBox[{"x", "[", 
+           RowBox[{"[", 
+            RowBox[{"i", ",", "1"}], "]"}], "]"}]}], ")"}], "*", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"x", "[", 
+           RowBox[{"[", 
+            RowBox[{
+             RowBox[{"i", "+", "1"}], ",", "2"}], "]"}], "]"}], "+", 
+          RowBox[{"x", "[", 
+           RowBox[{"[", 
+            RowBox[{"i", ",", "2"}], "]"}], "]"}]}], ")"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", 
+         RowBox[{
+          RowBox[{"Length", "[", "x", "]"}], "-", "1"}], ",", "1"}], "}"}]}], 
+      "]"}], "]"}]}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.698592524508521*^9, 3.698592529082451*^9}, {
+  3.698729111109643*^9, 3.6987291120949287`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ngen", "=", 
+   RowBox[{"5", "+", "1"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"popsize", "=", "5000"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{"\"\<Program Files/generations.dat\>\"", ",", "\"\<Data\>\""}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"plotdata", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"popsize", 
+            RowBox[{"(", 
+             RowBox[{"j", "-", "1"}], ")"}]}], "+", "i"}], ",", "4"}], "]"}], 
+        "]"}], ",", 
+       RowBox[{"-", 
+        RowBox[{"data", "[", 
+         RowBox[{"[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"popsize", 
+             RowBox[{"(", 
+              RowBox[{"j", "-", "1"}], ")"}]}], "+", "i"}], ",", "3"}], "]"}],
+          "]"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"j", ",", "1", ",", "ngen"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", "popsize"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"weightsdata", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"popsize", 
+            RowBox[{"(", 
+             RowBox[{"j", "-", "1"}], ")"}]}], "+", "i"}], ",", "1"}], "]"}], 
+        "]"}], ",", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"popsize", 
+            RowBox[{"(", 
+             RowBox[{"j", "-", "1"}], ")"}]}], "+", "i"}], ",", "2"}], "]"}], 
+        "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"j", ",", "1", ",", "ngen"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", "popsize"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Export", "[", 
+  RowBox[{"\"\<aaplmsftportfolio.gif\>\"", ",", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"GraphicsGrid", "[", 
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", "\[IndentingNewLine]", 
+         RowBox[{"ListPlot", "[", 
+          RowBox[{
+           RowBox[{"plotdata", "[", 
+            RowBox[{"[", "i", "]"}], "]"}], ",", 
+           RowBox[{"PlotRange", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"0", ",", 
+                RowBox[{"Max", "[", 
+                 RowBox[{"plotdata", "[", 
+                  RowBox[{"[", 
+                   RowBox[{
+                    RowBox[{"-", "1"}], ",", "All", ",", "1"}], "]"}], "]"}], 
+                 "]"}]}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"0", ",", 
+                RowBox[{"Max", "[", 
+                 RowBox[{"plotdata", "[", 
+                  RowBox[{"[", 
+                   RowBox[{
+                    RowBox[{"-", "1"}], ",", "All", ",", "2"}], "]"}], "]"}], 
+                 "]"}]}], "}"}]}], "}"}]}], ",", 
+           RowBox[{"PlotLabel", "\[Rule]", "\"\<Portfolio Analysis\>\""}], 
+           ",", 
+           RowBox[{"Frame", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"True", ",", "False"}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"True", ",", "False"}], "}"}]}], "}"}]}], ",", 
+           RowBox[{"FrameLabel", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{"\"\<Variance\>\"", ",", "\"\<Expected Return\>\""}], 
+             "}"}]}], ",", 
+           RowBox[{"PlotStyle", "\[Rule]", 
+            RowBox[{"PointSize", "[", "0.003", "]"}]}], ",", 
+           RowBox[{"AxesOrigin", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{"0", ",", "0"}], "}"}]}], ",", 
+           RowBox[{"PlotTheme", "\[Rule]", "\"\<Classic\>\""}], ",", 
+           RowBox[{"BaseStyle", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{"FontSize", "\[Rule]", "14"}], "}"}]}]}], 
+          "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", "}"}], ",", 
+        RowBox[{"{", "\[IndentingNewLine]", 
+         RowBox[{"ListPlot", "[", 
+          RowBox[{
+           RowBox[{"weightsdata", "[", 
+            RowBox[{"[", "i", "]"}], "]"}], ",", 
+           RowBox[{"PlotLabel", "\[Rule]", "\"\<Portfolio Analysis\>\""}], 
+           ",", 
+           RowBox[{"Frame", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"True", ",", "False"}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"True", ",", "False"}], "}"}]}], "}"}]}], ",", 
+           RowBox[{"FrameLabel", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{
+             "\"\<Apple Weights\>\"", ",", "\"\<Microsoft Weights\>\""}], 
+             "}"}]}], ",", 
+           RowBox[{"PlotStyle", "\[Rule]", 
+            RowBox[{"PointSize", "[", "0.003", "]"}]}], ",", 
+           RowBox[{"PlotRange", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"0", ",", "1"}], "}"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], ",", 
+           RowBox[{"AxesOrigin", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{"0", ",", "0"}], "}"}]}], ",", 
+           RowBox[{"PlotTheme", "\[Rule]", "\"\<Classic\>\""}], ",", 
+           RowBox[{"BaseStyle", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{"FontSize", "\[Rule]", "14"}], "}"}]}]}], 
+          "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", "}"}]}], "}"}],
+       "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", "ngen", ",", "1"}], "}"}]}], "]"}], ",", 
+   RowBox[{"\"\<DisplayDurations\>\"", "\[Rule]", "0.5"}], ",", 
+   RowBox[{"ImageSize", "\[Rule]", "700"}], ",", 
+   RowBox[{"ImageResolution", "\[Rule]", "700"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Manipulate", "[", 
+    RowBox[{
+     RowBox[{"ListPlot", "[", 
+      RowBox[{"data", "[", 
+       RowBox[{"[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{"popsize", "*", 
+            RowBox[{"(", 
+             RowBox[{"i", "-", "1"}], ")"}]}], "+", "1"}], ";;", 
+          RowBox[{"popsize", "*", "i"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "4"}], "}"}]}], "]"}], "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", "ngen", ",", "1"}], "}"}]}], "]"}], 
+   "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.698592563752228*^9, 3.698592632977256*^9}, {
+   3.698592757705735*^9, 3.698592777342842*^9}, {3.698592838578269*^9, 
+   3.69859297323534*^9}, {3.698593544994652*^9, 3.698593545511256*^9}, {
+   3.698618651458149*^9, 3.6986186517845078`*^9}, {3.698692141248741*^9, 
+   3.698692142717143*^9}, {3.698716657885742*^9, 3.698716659526121*^9}, {
+   3.698718591321665*^9, 3.698718593274119*^9}, {3.698719321699896*^9, 
+   3.698719321986751*^9}, {3.698720495724887*^9, 3.698720507761231*^9}, {
+   3.6987267092629557`*^9, 3.698726709554502*^9}, {3.698726802018797*^9, 
+   3.698727131474257*^9}, {3.698727164665778*^9, 3.69872717042846*^9}, {
+   3.698727554862125*^9, 3.698727570989882*^9}, {3.6987279257864733`*^9, 
+   3.698728082801608*^9}, {3.698728113186936*^9, 3.698728164082449*^9}, {
+   3.698728203665166*^9, 3.6987282490325327`*^9}, {3.698728306733652*^9, 
+   3.698728339379793*^9}, {3.698728373123308*^9, 3.698728391890204*^9}, {
+   3.698728453846306*^9, 3.698728550310392*^9}, {3.698730097696272*^9, 
+   3.698730128510376*^9}, {3.6987310398019857`*^9, 3.6987310710591784`*^9}, {
+   3.6987311024657516`*^9, 3.69873110544086*^9}, {3.69873151655506*^9, 
+   3.698731517512621*^9}, {3.698732203719707*^9, 3.698732206226507*^9}, 
+   3.6987325140507393`*^9, {3.698732668480465*^9, 3.69873267255967*^9}, {
+   3.698762460808264*^9, 3.6987624611477757`*^9}, {3.698766461482996*^9, 
+   3.6987666453341084`*^9}, {3.6987666836149073`*^9, 3.698766713061901*^9}, {
+   3.698766748276792*^9, 3.698766788659977*^9}, {3.6987668426427402`*^9, 
+   3.698766934732564*^9}, {3.69876705256595*^9, 3.698767058741062*^9}, {
+   3.698767091455757*^9, 3.698767102198449*^9}, {3.698767132527905*^9, 
+   3.6987671716622953`*^9}, {3.698767388971895*^9, 3.69876739156013*^9}, {
+   3.69876756590586*^9, 3.6987675952916822`*^9}, {3.6987676761196423`*^9, 
+   3.698767758079544*^9}, {3.716240770607122*^9, 3.7162407711577377`*^9}}],
+
+Cell[BoxData["\<\"aaplmsftportfolio.gif\"\>"], "Output",
+ CellChangeTimes->{
+  3.698766596731144*^9, {3.6987666363708687`*^9, 3.698766648735774*^9}, {
+   3.698766696553849*^9, 3.6987667171316013`*^9}, {3.698766752166432*^9, 
+   3.698766792250101*^9}, 3.698766876088797*^9, 3.698766939473871*^9, 
+   3.698767063653232*^9, 3.698767143276998*^9, 3.6987672279968987`*^9, 
+   3.6987673962147284`*^9, 3.698767573178667*^9, 3.698767645523861*^9, {
+   3.698767685061043*^9, 3.698767762936695*^9}, 3.7162297709757223`*^9, 
+   3.7162407163400517`*^9, 3.716240776779499*^9, {3.716307007840185*^9, 
+   3.716307016108671*^9}, 3.716307208113015*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["AAPL and MSFT", "Section",
+ CellChangeTimes->{{3.6987320421459723`*^9, 3.6987320454209538`*^9}, {
+  3.698732094145527*^9, 3.698732096769454*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"list", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{"\"\<stock_data/Stocks_List.txt\>\"", ",", "\"\<Table\>\""}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"For", "[", 
+  RowBox[{
+   RowBox[{"k", "=", "4"}], ",", 
+   RowBox[{"k", "\[LessEqual]", "5"}], ",", 
+   RowBox[{"k", "++"}], ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"stockdata", "[", "k", "]"}], "=", 
+     RowBox[{"Import", "[", 
+      RowBox[{
+       RowBox[{"\"\<stock_data/\>\"", "<>", 
+        RowBox[{"list", "[", 
+         RowBox[{"[", 
+          RowBox[{"k", ",", "1"}], "]"}], "]"}], "<>", "\"\<_File.txt\>\""}], 
+       ",", "\"\<Table\>\""}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"trailingreturnsdata", "[", "k", "]"}], "=", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"stockdata", "[", "k", "]"}], "[", 
+           RowBox[{"[", 
+            RowBox[{
+             RowBox[{"-", "i"}], ",", "5"}], "]"}], "]"}], "-", 
+          RowBox[{
+           RowBox[{"stockdata", "[", "k", "]"}], "[", 
+           RowBox[{"[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"-", "i"}], "-", "21"}], ",", "5"}], "]"}], "]"}]}], 
+         ")"}], "/", 
+        RowBox[{
+         RowBox[{"stockdata", "[", "k", "]"}], "[", 
+         RowBox[{"[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "i"}], "-", "21"}], ",", "5"}], "]"}], "]"}]}], ",", 
+       
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "252"}], "}"}]}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"yearreturns", "[", "k", "]"}], "=", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"stockdata", "[", "k", "]"}], "[", 
+         RowBox[{"[", 
+          RowBox[{
+           RowBox[{"-", "1"}], ",", "5"}], "]"}], "]"}], "-", 
+        RowBox[{
+         RowBox[{"stockdata", "[", "k", "]"}], "[", 
+         RowBox[{"[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "1"}], "-", "252"}], ",", "5"}], "]"}], "]"}]}], 
+       ")"}], "/", 
+      RowBox[{
+       RowBox[{"stockdata", "[", "k", "]"}], "[", 
+       RowBox[{"[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"-", "1"}], "-", "252"}], ",", "5"}], "]"}], "]"}]}]}], ";",
+     "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"yearsds", "[", "k", "]"}], "=", 
+     RowBox[{"Sqrt", "[", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"252", "/", "252"}], ")"}], "*", 
+       RowBox[{"Total", "[", 
+        RowBox[{"Table", "[", 
+         RowBox[{
+          SuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{"Log", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"stockdata", "[", "k", "]"}], "[", 
+               RowBox[{"[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"-", "1"}], "-", "j"}], ",", "5"}], "]"}], "]"}], 
+              "/", 
+              RowBox[{
+               RowBox[{"stockdata", "[", "k", "]"}], "[", 
+               RowBox[{"[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"-", "1"}], "-", "j", "-", "1"}], ",", "5"}], "]"}],
+                "]"}]}], "]"}], ")"}], "2"], ",", 
+          RowBox[{"{", 
+           RowBox[{"j", ",", "1", ",", "252", ",", "1"}], "}"}]}], "]"}], 
+        "]"}]}], "]"}]}]}]}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"model", "=", 
+   RowBox[{"LinearModelFit", "[", 
+    RowBox[{
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"stockdata", "[", "4", "]"}], "[", 
+          RowBox[{"[", 
+           RowBox[{"i", ",", "5"}], "]"}], "]"}], ",", 
+         RowBox[{
+          RowBox[{"stockdata", "[", "5", "]"}], "[", 
+          RowBox[{"[", 
+           RowBox[{"i", ",", "5"}], "]"}], "]"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", 
+         RowBox[{"-", "252"}], ",", 
+         RowBox[{"-", "1"}], ",", "1"}], "}"}]}], "]"}], ",", "x", ",", "x"}],
+     "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Table", "[", 
+  RowBox[{
+   RowBox[{"yearreturns", "[", "i", "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"i", ",", "4", ",", "5"}], "}"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Table", "[", 
+  RowBox[{
+   RowBox[{"yearsds", "[", "i", "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"i", ",", "4", ",", "5"}], "}"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"model", "[", "\"\<CovarianceMatrix\>\"", "]"}]}], "Input",
+ CellChangeTimes->{{3.698727463903448*^9, 3.698727473325098*^9}, {
+   3.6987275498705893`*^9, 3.698727550787858*^9}, {3.69872759750867*^9, 
+   3.6987276334767027`*^9}, {3.698727716924519*^9, 3.698727741886078*^9}, {
+   3.6987277929914827`*^9, 3.698727846804935*^9}, 3.6987285903968287`*^9, {
+   3.6987286283989058`*^9, 3.6987286548302183`*^9}, 3.698728719970901*^9, {
+   3.698728900301268*^9, 3.698728911346737*^9}, {3.698729005635436*^9, 
+   3.698729008312971*^9}, {3.698729178183722*^9, 3.698729277860538*^9}, {
+   3.698729318729464*^9, 3.698729413677047*^9}, {3.698729540608416*^9, 
+   3.6987296702131233`*^9}, {3.698729702040765*^9, 3.6987297332516623`*^9}, {
+   3.698729813454812*^9, 3.698729862090396*^9}, 3.698731585351807*^9, {
+   3.698732010720649*^9, 3.698732023898107*^9}, 3.6987323389337273`*^9, {
+   3.698732466412537*^9, 3.698732468842436*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.24610588018361737`", ",", "0.2428685023771791`"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.698732011749537*^9, 3.698732024563511*^9}, {
+   3.69873233965082*^9, 3.698732362700424*^9}, 3.6987324695390043`*^9, 
+   3.716229785881109*^9, 3.7163072018491173`*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.22316281587191614`", ",", "0.2166180387266091`"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.698732011749537*^9, 3.698732024563511*^9}, {
+   3.69873233965082*^9, 3.698732362700424*^9}, 3.6987324695390043`*^9, 
+   3.716229785881109*^9, 3.716307201857823*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"2.3797160574559655`", ",", 
+     RowBox[{"-", "0.022398044121910612`"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"-", "0.022398044121910612`"}], ",", "0.00021204563766444304`"}],
+     "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.698732011749537*^9, 3.698732024563511*^9}, {
+   3.69873233965082*^9, 3.698732362700424*^9}, 3.6987324695390043`*^9, 
+   3.716229785881109*^9, 3.7163072018633413`*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["KO and GE", "Section",
+ CellChangeTimes->{{3.6987320890128613`*^9, 3.6987320907239027`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"list", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{"\"\<stock_data/Stocks_List.txt\>\"", ",", "\"\<Table\>\""}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"For", "[", 
+  RowBox[{
+   RowBox[{"k", "=", "8"}], ",", 
+   RowBox[{"k", "\[LessEqual]", "9"}], ",", 
+   RowBox[{"k", "++"}], ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"stockdata", "[", "k", "]"}], "=", 
+     RowBox[{"Import", "[", 
+      RowBox[{
+       RowBox[{"\"\<stock_data/\>\"", "<>", 
+        RowBox[{"list", "[", 
+         RowBox[{"[", 
+          RowBox[{"k", ",", "1"}], "]"}], "]"}], "<>", "\"\<_File.txt\>\""}], 
+       ",", "\"\<Table\>\""}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"trailingreturnsdata", "[", "k", "]"}], "=", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"stockdata", "[", "k", "]"}], "[", 
+           RowBox[{"[", 
+            RowBox[{
+             RowBox[{"-", "i"}], ",", "5"}], "]"}], "]"}], "-", 
+          RowBox[{
+           RowBox[{"stockdata", "[", "k", "]"}], "[", 
+           RowBox[{"[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"-", "i"}], "-", "21"}], ",", "5"}], "]"}], "]"}]}], 
+         ")"}], "/", 
+        RowBox[{
+         RowBox[{"stockdata", "[", "k", "]"}], "[", 
+         RowBox[{"[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "i"}], "-", "21"}], ",", "5"}], "]"}], "]"}]}], ",", 
+       
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "252"}], "}"}]}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"yearreturns", "[", "k", "]"}], "=", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"stockdata", "[", "k", "]"}], "[", 
+         RowBox[{"[", 
+          RowBox[{
+           RowBox[{"-", "1"}], ",", "5"}], "]"}], "]"}], "-", 
+        RowBox[{
+         RowBox[{"stockdata", "[", "k", "]"}], "[", 
+         RowBox[{"[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "1"}], "-", "252"}], ",", "5"}], "]"}], "]"}]}], 
+       ")"}], "/", 
+      RowBox[{
+       RowBox[{"stockdata", "[", "k", "]"}], "[", 
+       RowBox[{"[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"-", "1"}], "-", "252"}], ",", "5"}], "]"}], "]"}]}]}], ";",
+     "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"yearsds", "[", "k", "]"}], "=", 
+     RowBox[{"Sqrt", "[", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"252", "/", "252"}], ")"}], "*", 
+       RowBox[{"Total", "[", 
+        RowBox[{"Table", "[", 
+         RowBox[{
+          SuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{"Log", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"stockdata", "[", "k", "]"}], "[", 
+               RowBox[{"[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"-", "1"}], "-", "j"}], ",", "5"}], "]"}], "]"}], 
+              "/", 
+              RowBox[{
+               RowBox[{"stockdata", "[", "k", "]"}], "[", 
+               RowBox[{"[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"-", "1"}], "-", "j", "-", "1"}], ",", "5"}], "]"}],
+                "]"}]}], "]"}], ")"}], "2"], ",", 
+          RowBox[{"{", 
+           RowBox[{"j", ",", "1", ",", "252", ",", "1"}], "}"}]}], "]"}], 
+        "]"}]}], "]"}]}]}]}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"model", "=", 
+   RowBox[{"LinearModelFit", "[", 
+    RowBox[{
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"stockdata", "[", "8", "]"}], "[", 
+          RowBox[{"[", 
+           RowBox[{"i", ",", "5"}], "]"}], "]"}], ",", 
+         RowBox[{
+          RowBox[{"stockdata", "[", "9", "]"}], "[", 
+          RowBox[{"[", 
+           RowBox[{"i", ",", "5"}], "]"}], "]"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", 
+         RowBox[{"-", "252"}], ",", 
+         RowBox[{"-", "1"}], ",", "1"}], "}"}]}], "]"}], ",", "x", ",", "x"}],
+     "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Table", "[", 
+  RowBox[{
+   RowBox[{"yearreturns", "[", "i", "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"i", ",", "8", ",", "9"}], "}"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Table", "[", 
+  RowBox[{
+   RowBox[{"yearsds", "[", "i", "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"i", ",", "8", ",", "9"}], "}"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"model", "[", "\"\<CovarianceMatrix\>\"", "]"}]}], "Input",
+ CellChangeTimes->{{3.6987285974305763`*^9, 3.6987286100583897`*^9}, {
+   3.6987286782293253`*^9, 3.6987287095951014`*^9}, {3.698728755769548*^9, 
+   3.698728790887658*^9}, {3.698728905569907*^9, 3.6987289091974707`*^9}, {
+   3.698729388803944*^9, 3.69872939003548*^9}, {3.698732014639296*^9, 
+   3.698732083335565*^9}, 3.6987323347552757`*^9, {3.698732458664572*^9, 
+   3.698732461622959*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"-", "0.0016912056460789671`"}], ",", "0.0678559286463798`"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{
+  3.698728791184927*^9, 3.6987289138797817`*^9, 3.6987290121997337`*^9, {
+   3.698729391012252*^9, 3.698729418142345*^9}, 3.69872967442203*^9, {
+   3.698729853543557*^9, 3.698729864745949*^9}, {3.698732068139812*^9, 
+   3.698732101302299*^9}, 3.6987322420565577`*^9, 3.698732371307452*^9, 
+   3.698732462315316*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.14203907548244063`", ",", "0.1574964144508285`"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{
+  3.698728791184927*^9, 3.6987289138797817`*^9, 3.6987290121997337`*^9, {
+   3.698729391012252*^9, 3.698729418142345*^9}, 3.69872967442203*^9, {
+   3.698729853543557*^9, 3.698729864745949*^9}, {3.698732068139812*^9, 
+   3.698732101302299*^9}, 3.6987322420565577`*^9, 3.698732371307452*^9, 
+   3.69873246232865*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"3.146799177964319`", ",", 
+     RowBox[{"-", "0.07220248113496307`"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"-", "0.07220248113496307`"}], ",", "0.0016591505988325912`"}], 
+    "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.698728791184927*^9, 3.6987289138797817`*^9, 3.6987290121997337`*^9, {
+   3.698729391012252*^9, 3.698729418142345*^9}, 3.69872967442203*^9, {
+   3.698729853543557*^9, 3.698729864745949*^9}, {3.698732068139812*^9, 
+   3.698732101302299*^9}, 3.6987322420565577`*^9, 3.698732371307452*^9, 
+   3.6987324623366833`*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["PG and KO", "Section",
+ CellChangeTimes->{{3.698732269094735*^9, 3.698732270376965*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"list", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{"\"\<stock_data/Stocks_List.txt\>\"", ",", "\"\<Table\>\""}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"For", "[", 
+  RowBox[{
+   RowBox[{"k", "=", "6"}], ",", 
+   RowBox[{"k", "\[LessEqual]", "8"}], ",", 
+   RowBox[{"k", "+=", "2"}], ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"stockdata", "[", "k", "]"}], "=", 
+     RowBox[{"Import", "[", 
+      RowBox[{
+       RowBox[{"\"\<stock_data/\>\"", "<>", 
+        RowBox[{"list", "[", 
+         RowBox[{"[", 
+          RowBox[{"k", ",", "1"}], "]"}], "]"}], "<>", "\"\<_File.txt\>\""}], 
+       ",", "\"\<Table\>\""}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"trailingreturnsdata", "[", "k", "]"}], "=", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"stockdata", "[", "k", "]"}], "[", 
+           RowBox[{"[", 
+            RowBox[{
+             RowBox[{"-", "i"}], ",", "5"}], "]"}], "]"}], "-", 
+          RowBox[{
+           RowBox[{"stockdata", "[", "k", "]"}], "[", 
+           RowBox[{"[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"-", "i"}], "-", "21"}], ",", "5"}], "]"}], "]"}]}], 
+         ")"}], "/", 
+        RowBox[{
+         RowBox[{"stockdata", "[", "k", "]"}], "[", 
+         RowBox[{"[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "i"}], "-", "21"}], ",", "5"}], "]"}], "]"}]}], ",", 
+       
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "252"}], "}"}]}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"yearreturns", "[", "k", "]"}], "=", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"stockdata", "[", "k", "]"}], "[", 
+         RowBox[{"[", 
+          RowBox[{
+           RowBox[{"-", "1"}], ",", "5"}], "]"}], "]"}], "-", 
+        RowBox[{
+         RowBox[{"stockdata", "[", "k", "]"}], "[", 
+         RowBox[{"[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "1"}], "-", "252"}], ",", "5"}], "]"}], "]"}]}], 
+       ")"}], "/", 
+      RowBox[{
+       RowBox[{"stockdata", "[", "k", "]"}], "[", 
+       RowBox[{"[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"-", "1"}], "-", "252"}], ",", "5"}], "]"}], "]"}]}]}], ";",
+     "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"yearsds", "[", "k", "]"}], "=", 
+     RowBox[{"Sqrt", "[", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"252", "/", "252"}], ")"}], "*", 
+       RowBox[{"Total", "[", 
+        RowBox[{"Table", "[", 
+         RowBox[{
+          SuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{"Log", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"stockdata", "[", "k", "]"}], "[", 
+               RowBox[{"[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"-", "1"}], "-", "j"}], ",", "5"}], "]"}], "]"}], 
+              "/", 
+              RowBox[{
+               RowBox[{"stockdata", "[", "k", "]"}], "[", 
+               RowBox[{"[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"-", "1"}], "-", "j", "-", "1"}], ",", "5"}], "]"}],
+                "]"}]}], "]"}], ")"}], "2"], ",", 
+          RowBox[{"{", 
+           RowBox[{"j", ",", "1", ",", "252", ",", "1"}], "}"}]}], "]"}], 
+        "]"}]}], "]"}]}]}]}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"model", "=", 
+   RowBox[{"LinearModelFit", "[", 
+    RowBox[{
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"stockdata", "[", "6", "]"}], "[", 
+          RowBox[{"[", 
+           RowBox[{"i", ",", "5"}], "]"}], "]"}], ",", 
+         RowBox[{
+          RowBox[{"stockdata", "[", "8", "]"}], "[", 
+          RowBox[{"[", 
+           RowBox[{"i", ",", "5"}], "]"}], "]"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", 
+         RowBox[{"-", "252"}], ",", 
+         RowBox[{"-", "1"}], ",", "1"}], "}"}]}], "]"}], ",", "x", ",", "x"}],
+     "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Table", "[", 
+  RowBox[{
+   RowBox[{"yearreturns", "[", "i", "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"i", ",", "6", ",", "8", ",", "2"}], "}"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Table", "[", 
+  RowBox[{
+   RowBox[{"yearsds", "[", "i", "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"i", ",", "6", ",", "8", ",", "2"}], "}"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"model", "[", "\"\<CovarianceMatrix\>\"", "]"}]}], "Input",
+ CellChangeTimes->{{3.698732275798991*^9, 3.698732326154461*^9}, 
+   3.698732378954447*^9, {3.698732444200795*^9, 3.698732446668035*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.13985917440225268`", ",", 
+   RowBox[{"-", "0.0016912056460789671`"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.6987323005080633`*^9, 3.698732327158557*^9}, {
+   3.698732374697729*^9, 3.698732379817731*^9}, 3.6987324472760487`*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.13970208750229451`", ",", "0.14203907548244063`"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.6987323005080633`*^9, 3.698732327158557*^9}, {
+   3.698732374697729*^9, 3.698732379817731*^9}, 3.6987324472822647`*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"11.011370578182007`", ",", 
+     RowBox[{"-", "0.13076738631639537`"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"-", "0.13076738631639534`"}], ",", "0.0015544480403711135`"}], 
+    "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.6987323005080633`*^9, 3.698732327158557*^9}, {
+   3.698732374697729*^9, 3.698732379817731*^9}, 3.6987324472863207`*^9}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{808, 842},
+WindowMargins->{{Automatic, 74}, {Automatic, -4}},
+FrontEndVersion->"11.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+21, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 1673, 50, 222, "Input"],
+Cell[CellGroupData[{
+Cell[2256, 74, 8550, 207, 537, "Input"],
+Cell[10809, 283, 635, 9, 90, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11481, 297, 151, 2, 64, "Section"],
+Cell[CellGroupData[{
+Cell[11657, 303, 5496, 150, 421, "Input"],
+Cell[17156, 455, 302, 6, 32, "Output"],
+Cell[17461, 463, 300, 6, 32, "Output"],
+Cell[17764, 471, 487, 12, 32, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18300, 489, 98, 1, 64, "Section"],
+Cell[CellGroupData[{
+Cell[18423, 494, 5032, 144, 421, "Input"],
+Cell[23458, 640, 470, 10, 32, "Output"],
+Cell[23931, 652, 448, 9, 32, "Output"],
+Cell[24382, 663, 632, 15, 32, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[25063, 684, 94, 1, 64, "Section"],
+Cell[CellGroupData[{
+Cell[25182, 689, 4800, 140, 421, "Input"],
+Cell[29985, 831, 274, 5, 32, "Output"],
+Cell[30262, 838, 256, 5, 32, "Output"],
+Cell[30521, 845, 437, 11, 32, "Output"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

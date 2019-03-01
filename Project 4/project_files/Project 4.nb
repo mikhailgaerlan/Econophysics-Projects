@@ -1,0 +1,374 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     14081,        366]
+NotebookOptionsPosition[     13327,        337]
+NotebookOutlinePosition[     13686,        353]
+CellTagsIndexPosition[     13643,        350]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ClearAll", "[", "\"\<Global`*\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+  "main", "=", 
+   "\"\</Users/mikhailgaerlan/Box Sync/Education/UC Davis/2016-2017 \
+Winter/PHY 250 Econophysics/Projects/Project 4/project_files\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetDirectory", "[", "main", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"$Line", "=", "0"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.693970638042881*^9, 3.693970751661682*^9}, {
+  3.694036412435266*^9, 3.6940364140333157`*^9}, {3.696872034740324*^9, 
+  3.696872034925817*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"list", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{"\"\<Stocks_List.txt\>\"", ",", "\"\<Table\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"plots", "=", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"threemonthreturns", "=", 
+   RowBox[{"Range", "[", 
+    RowBox[{"Length", "[", "list", "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"threemonthreturnshistlist", "=", 
+   RowBox[{"Range", "[", 
+    RowBox[{"Length", "[", "list", "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"threemonthreturnshistdata", "=", 
+   RowBox[{"Range", "[", 
+    RowBox[{"Length", "[", "list", "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"threemonthmodel", "=", 
+   RowBox[{"Range", "[", 
+    RowBox[{"Length", "[", "list", "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"For", "[", 
+  RowBox[{
+   RowBox[{"j", "=", "1"}], ",", 
+   RowBox[{"j", "\[LessEqual]", 
+    RowBox[{"Length", "[", "list", "]"}]}], ",", 
+   RowBox[{"j", "++"}], ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"data", "=", 
+     RowBox[{"Import", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"list", "[", 
+         RowBox[{"[", 
+          RowBox[{"j", ",", "1"}], "]"}], "]"}], "<>", "\"\<_File.txt\>\""}], 
+       ",", "\"\<Table\>\""}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"threemonthreturns", "[", 
+      RowBox[{"[", "j", "]"}], "]"}], "=", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Log", "[", 
+         RowBox[{"data", "[", 
+          RowBox[{"[", 
+           RowBox[{
+            RowBox[{"-", "i"}], ",", "5"}], "]"}], "]"}], "]"}], "-", 
+        RowBox[{"Log", "[", 
+         RowBox[{"data", "[", 
+          RowBox[{"[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"-", "i"}], "-", "1"}], ",", "5"}], "]"}], "]"}], 
+         "]"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", 
+         RowBox[{"252", "*", "17"}]}], "}"}]}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"threemonthreturnshistlist", "[", 
+      RowBox[{"[", "j", "]"}], "]"}], "=", 
+     RowBox[{"HistogramList", "[", 
+      RowBox[{
+       RowBox[{"threemonthreturns", "[", 
+        RowBox[{"[", "j", "]"}], "]"}], ",", "Automatic", ",", 
+       "\"\<PDF\>\""}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"threemonthreturnshistdata", "[", 
+      RowBox[{"[", "j", "]"}], "]"}], "=", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"threemonthreturnshistlist", "[", 
+             RowBox[{"[", 
+              RowBox[{"j", ",", "1", ",", "i"}], "]"}], "]"}], "+", 
+            RowBox[{"threemonthreturnshistlist", "[", 
+             RowBox[{"[", 
+              RowBox[{"j", ",", "1", ",", 
+               RowBox[{"i", "+", "1"}]}], "]"}], "]"}]}], ")"}], "/", "2"}], 
+         ",", 
+         RowBox[{"threemonthreturnshistlist", "[", 
+          RowBox[{"[", 
+           RowBox[{"j", ",", "2", ",", "i"}], "]"}], "]"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", 
+         RowBox[{
+          RowBox[{"Length", "[", 
+           RowBox[{"threemonthreturnshistlist", "[", 
+            RowBox[{"[", 
+             RowBox[{"j", ",", "1"}], "]"}], "]"}], "]"}], "-", "2"}]}], 
+        "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"threemonthmodel", "[", 
+      RowBox[{"[", "j", "]"}], "]"}], "=", 
+     RowBox[{"NonlinearModelFit", "[", 
+      RowBox[{
+       RowBox[{"threemonthreturnshistdata", "[", 
+        RowBox[{"[", "j", "]"}], "]"}], ",", 
+       RowBox[{"PDF", "[", 
+        RowBox[{
+         RowBox[{"NormalDistribution", "[", 
+          RowBox[{"\[Mu]", ",", "\[Sigma]"}], "]"}], ",", "x"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"\[Mu]", ",", "0.1"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"\[Sigma]", ",", "0.1"}], "}"}]}], "}"}], ",", "x"}], 
+      "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Print", "[", 
+     RowBox[{"list", "[", 
+      RowBox[{"[", 
+       RowBox[{"j", ",", "1"}], "]"}], "]"}], "]"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Export", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"list", "[", 
+        RowBox[{"[", 
+         RowBox[{"j", ",", "1"}], "]"}], "]"}], "<>", 
+       "\"\<dailyreturns.png\>\""}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Show", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"Histogram", "[", 
+         RowBox[{
+          RowBox[{"threemonthreturns", "[", 
+           RowBox[{"[", "j", "]"}], "]"}], ",", "Automatic", ",", 
+          "\"\<PDF\>\"", ",", 
+          RowBox[{"PlotTheme", "\[Rule]", "\"\<Classic\>\""}]}], "]"}], ",", 
+        "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{"ListPlot", "[", 
+         RowBox[{
+          RowBox[{"threemonthreturnshistdata", "[", 
+           RowBox[{"[", "j", "]"}], "]"}], ",", 
+          RowBox[{"PlotTheme", "\[Rule]", "\"\<Classic\>\""}]}], "]"}], ",", 
+        "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{"Plot", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"threemonthmodel", "[", 
+            RowBox[{"[", "j", "]"}], "]"}], "[", "\"\<BestFit\>\"", "]"}], 
+          ",", 
+          RowBox[{"{", 
+           RowBox[{"x", ",", 
+            RowBox[{"-", "1"}], ",", "1"}], "}"}], ",", 
+          RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+          RowBox[{"PlotTheme", "\[Rule]", "\"\<Classic\>\""}], ",", 
+          RowBox[{"PlotLegends", "\[Rule]", 
+           RowBox[{"Style", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"threemonthmodel", "[", 
+               RowBox[{"[", "j", "]"}], "]"}], "[", "\"\<ParameterTable\>\"", 
+              "]"}], ",", "12"}], "]"}]}]}], "]"}], ",", 
+        "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{"(*", 
+         RowBox[{
+          RowBox[{"Graphics", "[", 
+           RowBox[{"Text", "[", 
+            RowBox[{
+             RowBox[{"Style", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"threemonthmodel", "[", 
+                 RowBox[{"[", "j", "]"}], "]"}], "[", 
+                "\"\<ParameterTable\>\"", "]"}], ",", 
+               RowBox[{"FontFamily", "\[Rule]", "\"\<Times\>\""}]}], "]"}], 
+             ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{
+                RowBox[{
+                 RowBox[{"threemonthmodel", "[", 
+                  RowBox[{"[", "j", "]"}], "]"}], "[", 
+                 "\"\<BestFitParameters\>\"", "]"}], "[", 
+                RowBox[{"[", 
+                 RowBox[{"1", ",", "2"}], "]"}], "]"}], ",", 
+               RowBox[{
+                RowBox[{"Max", "[", 
+                 RowBox[{"threemonthreturnshistlist", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"j", ",", "2"}], "]"}], "]"}], "]"}], "*", 
+                RowBox[{"(", 
+                 RowBox[{"1", "/", "2"}], ")"}]}]}], "}"}]}], "]"}], "]"}], 
+          ","}], "*)"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{"PlotLabel", "\[Rule]", 
+         RowBox[{
+          RowBox[{"list", "[", 
+           RowBox[{"[", 
+            RowBox[{"j", ",", "1"}], "]"}], "]"}], "<>", 
+          "\"\< Log Daily Returns\>\""}]}], ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"FontFamily", "\[Rule]", "\"\<Times\>\""}], ",", 
+           RowBox[{"FontSize", "\[Rule]", "12"}]}], "}"}]}], ",", 
+        RowBox[{"ImageSize", "\[Rule]", "400"}]}], "\[IndentingNewLine]", 
+       "]"}], ",", 
+      RowBox[{"ImageResolution", "\[Rule]", "75"}]}], "\[IndentingNewLine]", 
+     "]"}]}]}], "\[IndentingNewLine]", "]"}]}], "Input",
+ CellChangeTimes->{{3.693970766803409*^9, 3.69397080110491*^9}, {
+   3.69397117649895*^9, 3.693971177660367*^9}, {3.69397125336159*^9, 
+   3.693971261148795*^9}, {3.693971304338586*^9, 3.693971324334016*^9}, {
+   3.693971699445455*^9, 3.693971711745085*^9}, {3.693971751970304*^9, 
+   3.693971836118413*^9}, {3.693971868921493*^9, 3.693972108277907*^9}, {
+   3.693972138526742*^9, 3.6939722168453693`*^9}, {3.693972266611569*^9, 
+   3.6939723021492662`*^9}, {3.6939723637786407`*^9, 3.693972364613944*^9}, {
+   3.693972698755423*^9, 3.6939727067159863`*^9}, {3.693972824582625*^9, 
+   3.693972958779923*^9}, {3.693973038418954*^9, 3.693973072747424*^9}, {
+   3.693973239932148*^9, 3.693973383385805*^9}, {3.693973579754971*^9, 
+   3.693973583330077*^9}, {3.694030814611063*^9, 3.694030923696886*^9}, {
+   3.6941167017459507`*^9, 3.694116731677133*^9}, {3.694144685029769*^9, 
+   3.6941446851650953`*^9}, {3.6941447898484087`*^9, 3.694144854711997*^9}, {
+   3.694144897217894*^9, 3.6941450351015797`*^9}, {3.696872864237629*^9, 
+   3.696872969415489*^9}, 3.696873013758493*^9, {3.696873048675688*^9, 
+   3.696873141740018*^9}, {3.6968734111416397`*^9, 3.696873691411744*^9}, {
+   3.6968737591750507`*^9, 3.696873888559764*^9}, {3.696873970648821*^9, 
+   3.696874009603224*^9}, {3.696874087989688*^9, 3.696874122790689*^9}, {
+   3.69687416730058*^9, 3.696874167506822*^9}, {3.696874217681753*^9, 
+   3.696874290640142*^9}, {3.696874426260083*^9, 3.696874466954462*^9}, {
+   3.696874585430298*^9, 3.6968745914027777`*^9}, {3.696874666176721*^9, 
+   3.696874760436468*^9}, {3.6968749605834713`*^9, 3.696874985652388*^9}, {
+   3.696875098220615*^9, 3.6968751205011663`*^9}, {3.696875268176557*^9, 
+   3.696875272577613*^9}, {3.696875324895166*^9, 3.6968753818208733`*^9}, {
+   3.696875515635353*^9, 3.696875524070993*^9}, {3.696875726866123*^9, 
+   3.6968757272619247`*^9}, {3.696875929239162*^9, 3.696875938373719*^9}, {
+   3.696876416734785*^9, 3.696876427936511*^9}, {3.696876469235444*^9, 
+   3.696876469499614*^9}, {3.6968765536313887`*^9, 3.696876555850603*^9}, {
+   3.6968768710266533`*^9, 3.6968768862222643`*^9}, 3.696876924166156*^9, {
+   3.6968772982287903`*^9, 3.696877543965852*^9}, {3.696877613716647*^9, 
+   3.696877717229843*^9}, {3.69687778023851*^9, 3.696877920812011*^9}, {
+   3.69687796223238*^9, 3.696878079355404*^9}, {3.696878193076613*^9, 
+   3.696878319169159*^9}, {3.6968783574498672`*^9, 3.696878458134515*^9}, {
+   3.696878508883603*^9, 3.696878570442402*^9}, {3.696878617542006*^9, 
+   3.696878630541586*^9}, {3.696878856224228*^9, 3.696878892489468*^9}, {
+   3.69687897026805*^9, 3.69687903700955*^9}, {3.696879289646164*^9, 
+   3.6968793652542458`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["\<\"^GSPC\"\>"], "Print",
+ CellChangeTimes->{
+  3.6968790380255003`*^9, {3.696879290622312*^9, 3.696879366898085*^9}}],
+
+Cell[BoxData["\<\"^VIX\"\>"], "Print",
+ CellChangeTimes->{
+  3.6968790380255003`*^9, {3.696879290622312*^9, 3.696879367531299*^9}}],
+
+Cell[BoxData["\<\"SPY\"\>"], "Print",
+ CellChangeTimes->{
+  3.6968790380255003`*^9, {3.696879290622312*^9, 3.69687936851987*^9}}],
+
+Cell[BoxData["\<\"AAPL\"\>"], "Print",
+ CellChangeTimes->{
+  3.6968790380255003`*^9, {3.696879290622312*^9, 3.696879369598131*^9}}],
+
+Cell[BoxData["\<\"MSFT\"\>"], "Print",
+ CellChangeTimes->{
+  3.6968790380255003`*^9, {3.696879290622312*^9, 3.6968793707219267`*^9}}],
+
+Cell[BoxData["\<\"PG\"\>"], "Print",
+ CellChangeTimes->{
+  3.6968790380255003`*^9, {3.696879290622312*^9, 3.696879371420012*^9}}],
+
+Cell[BoxData["\<\"FDX\"\>"], "Print",
+ CellChangeTimes->{
+  3.6968790380255003`*^9, {3.696879290622312*^9, 3.696879372283087*^9}}],
+
+Cell[BoxData["\<\"KO\"\>"], "Print",
+ CellChangeTimes->{
+  3.6968790380255003`*^9, {3.696879290622312*^9, 3.6968793424616737`*^9}, 
+   3.6968793729139833`*^9}],
+
+Cell[BoxData["\<\"GE\"\>"], "Print",
+ CellChangeTimes->{
+  3.6968790380255003`*^9, {3.696879290622312*^9, 3.6968793424616737`*^9}, 
+   3.6968793737170897`*^9}],
+
+Cell[BoxData["\<\"YHOO\"\>"], "Print",
+ CellChangeTimes->{
+  3.6968790380255003`*^9, {3.696879290622312*^9, 3.6968793424616737`*^9}, 
+   3.6968793744405537`*^9}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{808, 850},
+WindowMargins->{{105, Automatic}, {Automatic, 1}},
+FrontEndVersion->"11.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+21, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 634, 16, 138, "Input"],
+Cell[CellGroupData[{
+Cell[1217, 40, 10636, 248, 789, "Input"],
+Cell[CellGroupData[{
+Cell[11878, 292, 132, 2, 24, "Print"],
+Cell[12013, 296, 131, 2, 24, "Print"],
+Cell[12147, 300, 129, 2, 24, "Print"],
+Cell[12279, 304, 131, 2, 24, "Print"],
+Cell[12413, 308, 133, 2, 24, "Print"],
+Cell[12549, 312, 129, 2, 24, "Print"],
+Cell[12681, 316, 130, 2, 24, "Print"],
+Cell[12814, 320, 159, 3, 24, "Print"],
+Cell[12976, 325, 159, 3, 24, "Print"],
+Cell[13138, 330, 161, 3, 24, "Print"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

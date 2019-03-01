@@ -1,0 +1,19 @@
+&parameters
+    prints = .true.
+    seeded = .false.
+    popsize = 5000
+    ngen = 5
+    funcname = 'econo'
+    crossover = 'twoptcross'
+    cxpb = 0.8d0
+    distance = 0.05d0
+    unifpb = 0.5d0
+    mutation = 'mutflipbit'
+    flipprob = 0.01d0
+    mutpb = 0.6d0
+    mu = 0.25d0
+    sigma = 0.05d0
+    returns = 0.246106d0 0.242869d0
+    sds = 0.223163d0 0.216618d0
+    correlations = -0.022398d0 -0.022398d0
+/
