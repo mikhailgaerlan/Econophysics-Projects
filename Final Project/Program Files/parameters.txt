@@ -2,7 +2,7 @@
     prints = .true.
     seeded = .false.
     popsize = 5000
-    ngen = 5
+    ngen = 10
     funcname = 'econo'
     crossover = 'twoptcross'
     cxpb = 0.8d0

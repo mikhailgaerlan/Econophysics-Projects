@@ -46,10 +46,10 @@ program main
      indsize = 3
      objectives = 2
   elseif (funcname.eq.'econo') then
-     indsize=0
-     do i=1,10
-        if(returns(i).ne.0.0d0) indsize=indsize+1
-     enddo
+     indsize=2
+     !do i=1,2
+     !   if(returns(i).ne.0.0d0) indsize=indsize+1
+     !enddo
      objectives = 2
   endif
 
@@ -242,6 +242,7 @@ contains
     real(kind=8) :: f1
     real(kind=8),intent(in) :: x(:)
     real(kind=8),parameter :: pi=4.0d0*atan(1.0d0)
+    real(kind=8) :: econototal
     integer :: i
     
     f1=0.0d0
@@ -255,9 +256,17 @@ contains
           f1 = f1-10.0d0*exp(-0.2d0*sqrt(x(i)**2.0d0+x(i+1)**2.0d0)) !Kursawe 1
        enddo
     elseif (funcname.eq.'econo') then
+       econototal = 0.0d0
        do i=1,indsize
-          f1 = f1-x(i)*returns(i)
+          econototal = econototal + x(i)
        enddo
+       if (econototal.gt.1.0d0) then
+          f1 = 1000.0d0
+       else
+          do i=1,indsize
+             f1 = f1-x(i)*returns(i)
+          enddo
+       endif
     endif
     
   end function f1
@@ -265,6 +274,7 @@ contains
   function f2(x)
     real(kind=8) :: f2
     real(kind=8),intent(in) :: x(:)
+    real(kind=8) :: econototal
     integer :: i,j,k
     
     f2=0.0d0
@@ -275,20 +285,28 @@ contains
           f2 = f2+abs(x(i))**(0.8d0)+5.0d0*sin(x(i)**3.0d0) !Kursawe 2
        enddo
     elseif (funcname.eq.'econo') then
+       econototal = 0.0d0
        do i=1,indsize
-          f2 = f2+(x(i)**(2.0d0))*(sds(i)**(2.0d0))
+          econototal = econototal + x(i)
        enddo
-       do i=1,indsize
-          do j=1,indsize
-             if (j.gt.i) then
-                k = (i-1)*(indsize-1)+j-1
-             elseif (j.lt.i) then
-                k = (i-1)*(indsize-1)+j
-             endif
-             if (i.ne.j) f2 = f2+x(i)*x(j)*sds(i)*sds(j)*correlations(k)
+       if (econototal.gt.1.0d0) then
+          f2 = 1000.0d0
+       else
+          do i=1,indsize
+             f2 = f2+(x(i)**(2.0d0))*(sds(i)**(2.0d0))
           enddo
-       enddo
-       f2 = sqrt(f2)
+          do i=1,indsize
+             do j=1,indsize
+                if (j.gt.i) then
+                   k = (i-1)*(indsize-1)+j-1
+                elseif (j.lt.i) then
+                   k = (i-1)*(indsize-1)+j
+                endif
+                if (i.ne.j) f2 = f2+x(i)*x(j)*sds(i)*sds(j)*correlations(k)
+             enddo
+          enddo
+          f2 = sqrt(f2)
+       endif
     endif
   end function f2
   
